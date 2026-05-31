@@ -1,0 +1,42 @@
+package org.example.pieces;
+
+import org.example.Board;
+import java.awt.image.BufferedImage;
+
+public class Knight extends Piece {
+
+    public Knight(Board board, int row, int col, boolean isWhite) {
+        super(board);
+
+        this.row = row;
+        this.col = col;
+        this.isWhite = isWhite;
+        this.name = "Knight";
+
+        this.xPos = col * board.tileSize;
+        this.yPos = row * board.tileSize;
+
+        this.sprite = sheet.getSubimage(
+                3 * sheetScale,
+                isWhite ? 0 : sheetScale,
+                sheetScale,
+                sheetScale
+        ).getScaledInstance(
+                board.tileSize,
+                board.tileSize,
+                BufferedImage.SCALE_SMOOTH
+        );
+    }
+
+    @Override
+    public boolean isValidMovement(int col, int row) {
+        return Math.abs(col - this.col) *
+                Math.abs(row - this.row) == 2;
+    }
+
+    @Override
+    public boolean moveCollidesWithPiece(int col, int row) {
+        return false;
+    }
+
+}
